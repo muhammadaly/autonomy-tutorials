@@ -1,0 +1,31 @@
+{
+  "name": "Python Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "runArgs": [
+    "--name", "my-python-devcontainer",
+    "--init"
+  ],
+  "containerUser": "vscode",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "python.defaultInterpreterPath": "/usr/local/bin/python"
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-azuretools.vscode-docker",
+    "ms-vscode.cpptools",
+    "ms-vscode-remote.remote-containers"
+  ],
+  "postCreateCommand": "pip install --user -r requirements.txt || echo 'no requirements.txt found'",
+  "forwardPorts": [8000, 5000],
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+  ],
+  "remoteUser": "vscode"
+}
